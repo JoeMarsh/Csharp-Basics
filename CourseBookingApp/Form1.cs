@@ -18,6 +18,8 @@ namespace CourseBookingApp
             InitializeComponent();
         }
 
+        string[] filelines;
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
         {
             OpenFileDialog theDialog = new OpenFileDialog(); //opens file selection window
@@ -29,7 +31,7 @@ namespace CourseBookingApp
             {
                 int j = 0;
                 string filename = theDialog.FileName;
-                string[] filelines = File.ReadAllLines(filename);
+                filelines = File.ReadAllLines(filename);
                 for (int i = 0; i < filelines.Length; i++) //loop through each line in the opened file
                 {
                     //add file text to the listbox but skip every 3rd and 4th item
@@ -45,6 +47,14 @@ namespace CourseBookingApp
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2(filelines, listBox1.SelectedIndex); //pass filelines and the currently selected listbox index to Form2 so we can display the right course
+            frm.Show();
+        }
+
+
         
     }
 }
