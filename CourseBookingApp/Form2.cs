@@ -36,6 +36,21 @@ namespace CourseBookingApp
 
 
             //todo: set a loop to go through all possible buttons. just testing functionality for now
+
+            //Button[] buttonList = new Button[120];
+            //int i = 0;
+            //foreach (var control in this.Controls)
+            //{
+
+            //    if (control is Button)
+            //    {
+            //        buttonList[i] = (Button)control;
+            //        i++;
+            //    }
+            //}
+
+            //buttonList[119].BackColor = Color.Green;
+
             if (buttons[0] == 'B')
             {
                 button1.BackColor = Color.Green;
@@ -68,7 +83,6 @@ namespace CourseBookingApp
                 button3.BackColor = Color.Gray;
                 button3.Text = "1";
             }
-
 
 
         }
