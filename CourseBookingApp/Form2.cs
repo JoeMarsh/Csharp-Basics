@@ -12,14 +12,23 @@ namespace CourseBookingApp
 {
     public partial class Form2 : Form
     {
-        public Form2(string[] filelines, int selectedIndex)
+        string[] filelines;
+        ListBox listBox;
+
+        public Form2(string[] lines, ListBox list)
         {
             InitializeComponent();
+
+            filelines = lines;
+            listBox = list;                            
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            if (filelines != null && listBox.SelectedIndex != -1) //check that user has selected a course in the list
+                label2.Text = listBox.Text;
+            else
+                label2.Text = "No Course Selected";
         }
     }
 }

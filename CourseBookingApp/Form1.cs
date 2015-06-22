@@ -44,13 +44,24 @@ namespace CourseBookingApp
                     }
                     else
                         j++;
-                }
+                }               
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2(filelines, listBox1.SelectedIndex); //pass filelines and the currently selected listbox index to Form2 so we can display the right course
+            Form2 frm = new Form2(filelines, listBox1); //pass filelines and the currently selected listbox index to Form2 so we can display the selected course
+            frm.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2(filelines, listBox1); //pass filelines and the currently selected listbox index to Form2 so we can display the selected course
             frm.Show();
         }
 
