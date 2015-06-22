@@ -50,8 +50,20 @@ namespace CourseBookingApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2(filelines, listBox1); //pass filelines and the currently selected listbox index to Form2 so we can display the selected course
-            frm.Show();
+            //check that a file has been open and listbox1 index is not set to -1. Otherwise show an error message.
+            if (filelines != null && listBox1.SelectedIndex != -1)
+            {
+                Form2 frm = new Form2(filelines, listBox1); //pass filelines and the currently selected listbox index to Form2 so we can display the selected course
+                frm.Show();
+            }
+            else if (filelines == null)
+            {
+                MessageBox.Show("Unable to load course, no course file opened", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Unable to load course, no course selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
