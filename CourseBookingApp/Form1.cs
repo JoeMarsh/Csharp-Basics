@@ -35,7 +35,7 @@ namespace CourseBookingApp
                     //add file text to the listbox but skip every 3rd and 4th item
                     if (j < 2)
                         listBox1.Items.Add(filelines[i].Trim('"'));
-                    if (j == 3) //when we get to the 4th line in the file add a blank string to listbox and reset j to 0
+                    if (j == 3) //when we get to every 4th line in the file add a blank string to listbox and reset j to 0
                     {
                         listBox1.Items.Add("");
                         j = 0;
