@@ -55,7 +55,7 @@ namespace CourseBookingApp
 
 
             //todo: need a cleaner way than this of reading and writing to the list rather than breaking it up
-            buttons = filelines[3].Trim('"');
+            buttons = filelines[3];
 
 
             //todo: need a better way to generate all the buttons. just testing functionality for now
@@ -71,7 +71,7 @@ namespace CourseBookingApp
                 }
             }
 
-            buttons = filelines[7].Trim('"');
+            buttons = filelines[7];
 
             for (int i = 0; i < buttons.Length; i++)
             {
