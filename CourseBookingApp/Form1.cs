@@ -43,6 +43,8 @@ namespace CourseBookingApp
                 }
 
                 courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
+                
+                listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
 
                 foreach (string item in courseNames)
                 {
@@ -85,7 +87,6 @@ namespace CourseBookingApp
                     frm.Show();
                 }
             }
-
         }        
     }
 }
