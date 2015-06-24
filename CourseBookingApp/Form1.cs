@@ -13,13 +13,29 @@ namespace CourseBookingApp
 {
     public partial class Form1 : Form
     {
+        string filename;
+        public static string[] fileLines;
+        List<string> courseNames = new List<string>(); 
+
         public Form1()
         {
             InitializeComponent();
-        }
 
-        string[] fileLines;
-        List<string> courseNames = new List<string>();      
+            //List<Button> buttons = new List<Button>();
+
+            //foreach (Control c in this.Controls)
+            //{
+            //    Button b = c as Button;
+            //    if (b != null)
+            //    {
+            //        buttons.Add(b);
+            //        for (int i = 0; i < 2; i++)
+            //        {
+            //            buttons[i].Text = "test";
+            //        }
+            //    }
+            //}
+        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
         {
@@ -30,7 +46,7 @@ namespace CourseBookingApp
 
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
-                string filename = theDialog.FileName;
+                filename = theDialog.FileName;
                 fileLines = File.ReadAllLines(filename); // read the opened file into fileLines
                 for (int i = 0; i < fileLines.Length; i++)
                 {
@@ -68,7 +84,7 @@ namespace CourseBookingApp
             else
             {
                 MessageBox.Show("Unable to load course, no course selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +109,26 @@ namespace CourseBookingApp
         {
             Form3 frm = new Form3();
             frm.Show();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog(); //opens save dialog window
+            save.Title = "Save Text File";
+            save.Filter = "TXT files|*.txt";
+            save.InitialDirectory = @"C:\Users\blue20\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                //save.FileName = filename;
+                StreamWriter writer = new StreamWriter(save.OpenFile());
+                for (int i = 0; i < fileLines.Length; i++)
+                {
+                    writer.WriteLine(fileLines[i]);
+                }
+                writer.Dispose();
+                writer.Close();
+            }
+            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
         }        
     }
 }

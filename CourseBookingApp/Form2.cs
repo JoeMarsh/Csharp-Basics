@@ -13,13 +13,14 @@ namespace CourseBookingApp
     public partial class Form2 : Form
     {
         string[] fileLines;
+        List<int> nameIndex = new List<int>();
+        List<string> name = new List<string>();
         List<string> date = new List<string>();
         List<string> cost = new List<string>();
         List<string> bookings = new List<string>();
 
         ListBox listBox;
-        public static string buttons;
-
+        string buttons;
 
         //public struct courseDetails
         //{
@@ -78,6 +79,8 @@ namespace CourseBookingApp
             {
                 if (fileLines[i] == label2.Text)
                 {
+                   nameIndex.Add(i);
+                   name.Add(fileLines[i]);
                    date.Add(fileLines[i + 1]);
                    cost.Add(fileLines[i + 2]);
                    bookings.Add(fileLines[i + 3]);
@@ -136,18 +139,43 @@ namespace CourseBookingApp
             }
         }
 
-    //    private void btnAdd_Click(object sender, EventArgs e)
-    //    {
-    //        // Call the AddNewButton method of MyControlArray.
-    //        MyControlArray1.AddNewButton();
-    //        // Change the BackColor property of the Button 0.
-    //        MyControlArray1[0].BackColor = System.Drawing.Color.Red;
-    //    }
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {   
+            //TODO: Just saving to static for now. Need to change to set/get
 
-    //    private void btnRemove_Click(object sender, EventArgs e)
-    //    {
-    //        // Call the Remove method of MyControlArray.
-    //        MyControlArray1.Remove();
-    //    }
+            //put everything back into fileLines
+            if (bookings.ElementAtOrDefault(0) != null)
+            {
+                StringBuilder stringBuilder = new StringBuilder(bookings[0]);
+
+                for(int i = 0; i < 12; i++)
+                {
+                    if (MyControlArray1[i].Text != "B")
+                        MyControlArray1[i].Text = "F";
+
+                    stringBuilder[i] = Convert.ToChar(MyControlArray1[i].Text);
+                }
+
+
+                Form1.fileLines[nameIndex[0] + 3] = stringBuilder.ToString();
+                                
+            }
+
+            if (bookings.ElementAtOrDefault(1) != null)
+            {
+                StringBuilder stringBuilder = new StringBuilder(bookings[1]);
+
+                for (int i = 0; i < 12; i++)
+                {
+                    if (MyControlArray2[i].Text != "B")
+                        MyControlArray2[i].Text = "F";
+
+                    stringBuilder[i] = Convert.ToChar(MyControlArray2[i].Text);
+                }
+
+                Form1.fileLines[nameIndex[1] + 3] = stringBuilder.ToString();
+            }
+        }
+
     }
 }

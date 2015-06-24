@@ -5,9 +5,9 @@ using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace CourseBookingApp //https://msdn.microsoft.com/en-us/library/aa289500(v=vs.71).aspx
+namespace CourseBookingApp 
 {
-    class ButtonArray : System.Collections.CollectionBase
+    class ButtonArray : System.Collections.CollectionBase //https://msdn.microsoft.com/en-us/library/aa289500(v=vs.71).aspx
     {
         private readonly System.Windows.Forms.Form HostForm;
 
