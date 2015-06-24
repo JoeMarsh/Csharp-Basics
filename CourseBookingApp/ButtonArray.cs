@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
-namespace CourseBookingApp
+namespace CourseBookingApp //https://msdn.microsoft.com/en-us/library/aa289500(v=vs.71).aspx
 {
     class ButtonArray : System.Collections.CollectionBase
     {
@@ -60,8 +61,19 @@ namespace CourseBookingApp
 
         public void ClickHandler(Object sender, System.EventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("You have clicked button " +
-               ((System.Windows.Forms.Button)sender).Tag.ToString());
+            //System.Windows.Forms.MessageBox.Show("You have clicked button " +
+            //   ((System.Windows.Forms.Button)sender).Tag.ToString());
+
+            if (((System.Windows.Forms.Button)sender).BackColor == Color.Green)
+            {
+                ((System.Windows.Forms.Button)sender).BackColor = SystemColors.Control;
+                ((System.Windows.Forms.Button)sender).Text = ((System.Windows.Forms.Button)sender).Tag.ToString();
+            }
+            else
+            {
+                ((System.Windows.Forms.Button)sender).BackColor = Color.Green;
+                ((System.Windows.Forms.Button)sender).Text = "B";
+            }         
         }
     }
 }

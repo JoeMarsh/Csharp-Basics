@@ -87,6 +87,12 @@ namespace CourseBookingApp
                     frm.Show();
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 frm = new Form3();
+            frm.Show();
         }        
     }
 }

@@ -18,7 +18,7 @@ namespace CourseBookingApp
         List<string> bookings = new List<string>();
 
         ListBox listBox;
-        string buttons;
+        public static string buttons;
 
 
         //public struct courseDetails
@@ -58,7 +58,7 @@ namespace CourseBookingApp
             MyControlArray7 = new ButtonArray(this);
             MyControlArray8 = new ButtonArray(this);
             MyControlArray9 = new ButtonArray(this);
-            MyControlArray10 = new ButtonArray(this);
+            MyControlArray10 = new ButtonArray(this);                    
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -86,7 +86,6 @@ namespace CourseBookingApp
 
             //buttons = fileLines[3];
 
-
             if (bookings.ElementAtOrDefault(0) != null)
             {
                 buttons = bookings[0];
@@ -105,7 +104,7 @@ namespace CourseBookingApp
                     if (buttons[i] == 'B')
                     {
                         MyControlArray1[i].BackColor = Color.Green;
-                        MyControlArray1[i].Text = "B";
+                        MyControlArray1[i].Text = "B";                      
                     }
                 }
             }
