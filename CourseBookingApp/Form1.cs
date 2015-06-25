@@ -14,7 +14,7 @@ namespace CourseBookingApp
     public partial class Form1 : Form
     {
         string filename;
-        public static string[] fileLines;
+        public static string[] fileLines; //TODO: Can probably remove this and use the below list everywhere instead
         public static List<string> fileLinesList = new List<string>(); 
         List<string> courseNames = new List<string>(); 
 
@@ -22,6 +22,24 @@ namespace CourseBookingApp
         {
             InitializeComponent();
         }
+
+        //TODO: Should create a class and subscribe all Forms to event to call this method
+        //public void UpdateListMenu()
+        //{
+        //    for (int i = 0; i < fileLines.Length; i += 4)
+        //    {
+        //        courseNames.Add(fileLines[i]);  //add just the course titles into courseNames list                
+        //    }
+
+        //    courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
+
+        //    listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
+
+        //    foreach (string item in courseNames)
+        //    {
+        //        listBox1.Items.Add(item); //add the course titles to the listbox
+        //    }              
+        //}
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
         {
@@ -116,6 +134,8 @@ namespace CourseBookingApp
                 writer.Close();
             }
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
-        }        
+        }
+
+     
     }
 }

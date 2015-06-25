@@ -22,16 +22,7 @@ namespace CourseBookingApp
         ListBox listBox;
         string buttons;
 
-        //public struct courseDetails
-        //{
-        //    public string name;
-        //    public string date;
-        //    public string bookings;
-        //    public int price;
-        //};
-
-        //courseDetails[] courseArray = new courseDetails[] { };
-
+        //array of each row of buttons - see the ButtonArray.cs class
         ButtonArray MyControlArray1;
         ButtonArray MyControlArray2;
         ButtonArray MyControlArray3;
@@ -42,6 +33,10 @@ namespace CourseBookingApp
         ButtonArray MyControlArray8;
         ButtonArray MyControlArray9;
         ButtonArray MyControlArray10;
+
+        ButtonArray[] buttonRows; //array to hold each row of buttons so we can loop through them
+        Control[] dateArray; //array of date labels
+        Control[] costArray; //array of cost labels
 
         public Form2(string[] lines, ListBox list)
         {
@@ -61,20 +56,15 @@ namespace CourseBookingApp
             MyControlArray9 = new ButtonArray(this);
             MyControlArray10 = new ButtonArray(this);
 
-            //List<Button> buttons = new List<Button>();
+            buttonRows = new ButtonArray[] { MyControlArray1, MyControlArray2, MyControlArray3, 
+                MyControlArray4, MyControlArray5, MyControlArray6, MyControlArray7, MyControlArray8,
+                MyControlArray9, MyControlArray10 };
 
-            //foreach (Control c in this.Controls)
-            //{
-            //    Button b = c as Button;
-            //    if (b != null)
-            //    {
-            //        buttons.Add(b);
-            //        for (int i = 0; i < 2; i++)
-            //        {
-            //            buttons[i].Text = "test";
-            //        }
-            //    }
-            //}
+            dateArray = new Control[] { label5, label7, label9, label11,
+                label13, label15, label17, label19, label21, label23 };
+
+            costArray = new Control[] { label6, label8, label10, label12,
+                label14, label16, label18, label20, label22, label24 };
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -84,13 +74,11 @@ namespace CourseBookingApp
             else
                 label2.Text = "No Course Selected";
 
-            //TODO: need cleaner way to loop through all these, bit messy when we have a large amount of button rows 
-            //Just testing functionality of max 2 rows for now
+            bookings.Clear(); //erase everything in bookings so we don't add more lines to it if we reopen the form
 
-            //courseDetails course1 = new courseDetails(); //might use a struct to hold course info, use string arrays for now but will need to sort by date at some point
-
-            bookings.Clear();
-            for(int i = 0; i < fileLines.Length; i++)
+            //loop through all lines and if any match the selected course add the name, date and cost
+            //add them to the corresponding list. 
+            for(int i = 0; i < fileLines.Length; i++) 
             {
                 if (fileLines[i] == label2.Text)
                 {
@@ -102,93 +90,62 @@ namespace CourseBookingApp
                 }
             }
 
-            //buttons = fileLines[3];
-
-            if (bookings.ElementAtOrDefault(0) != null)
+            //create and populate a row of 12 buttons for each course date and set them to booked/not booked
+            for (int k = 0; k < 10; k++)
             {
-                buttons = bookings[0];
-
-                label5.Visible = true;
-                label6.Visible = true;
-
-                label5.Text = date[0];
-                label6.Text = cost[0];
-
-                for (int i = 0; i < buttons.Length; i++)
+                if (bookings.ElementAtOrDefault(k) != null)
                 {
-                    MyControlArray1.AddNewButton();
-                    MyControlArray1[i].Text = (i + 1).ToString();
-                    MyControlArray1[i].Left = ((i + 1) * 35);
-                    if (buttons[i] == 'B')
+                    buttons = bookings[k];
+
+                    dateArray[k].Visible = true;
+                    costArray[k].Visible = true;
+
+                    dateArray[k].Text = date[k];
+                    costArray[k].Text = cost[k];
+
+                    for (int i = 0; i < buttons.Length; i++)
                     {
-                        MyControlArray1[i].BackColor = Color.Green;
-                        MyControlArray1[i].Text = "B";                      
+                        //add button to the row and set its position
+                        buttonRows[k].AddNewButton();
+                        buttonRows[k][i].Text = (i + 1).ToString();
+                        buttonRows[k][i].Left = ((i + 1) * 35);
+                        buttonRows[k][i].Top = 50 * (k + 1);
+                        //set the button to show 'B' and background colour green depending on 
+                        //the booking status
+                        if (buttons[i] == 'B')
+                        {
+                            buttonRows[k][i].BackColor = Color.Green;
+                            buttonRows[k][i].Text = "B";
+                        }
                     }
-                }
-            }
-
-            //buttons = fileLines[7];
-
-            if (bookings.ElementAtOrDefault(1) != null)
-            {
-                buttons = bookings[1];
-
-                label7.Visible = true;
-                label8.Visible = true;
-
-                label7.Text = date[1];
-                label8.Text = cost[1];
-
-                for (int i = 0; i < buttons.Length; i++)
-                {
-                    MyControlArray2.AddNewButton();
-                    MyControlArray2[i].Text = (i + 1).ToString();
-                    MyControlArray2[i].Left = ((i + 1) * 35);
-                    MyControlArray2[i].Top += 40;
-                    if (buttons[i] == 'B')
-                    {
-                        MyControlArray2[i].BackColor = Color.Green;
-                        MyControlArray2[i].Text = "B";
-                    }
+                    //setting top position of the date and cost labels here instead on the form designer
+                    dateArray[k].Top = buttonRows[k][k].Top + 10; 
+                    costArray[k].Top = buttonRows[k][k].Top + 10;
                 }
             }
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
-        {   
-            //TODO: Just saving to static for now. Need to change to set/get
+        {
+            //TODO: Just saving to static array Form1.fileLines for now.
+            //might be better as a class to manage the data elements
 
-            //put everything back into fileLines so we can save it to text file
-            if (bookings.ElementAtOrDefault(0) != null)
+            //put everything back into Form1.fileLines so we can save it to text file
+            for (int k = 0; k < 10; k++)
             {
-                StringBuilder stringBuilder = new StringBuilder(bookings[0]);
-
-                for(int i = 0; i < 12; i++)
+                if (bookings.ElementAtOrDefault(k) != null)
                 {
-                    if (MyControlArray1[i].Text != "B")
-                        MyControlArray1[i].Text = "F";
+                    StringBuilder stringBuilder = new StringBuilder(bookings[k]);
 
-                    stringBuilder[i] = Convert.ToChar(MyControlArray1[i].Text);
+                    for (int i = 0; i < 12; i++)
+                    {
+                        if (buttonRows[k][i].Text != "B")
+                            buttonRows[k][i].Text = "F";
+
+                        stringBuilder[i] = Convert.ToChar(buttonRows[k][i].Text);
+                    }
+                    Form1.fileLines[nameIndex[k] + 3] = stringBuilder.ToString();
                 }
-
-
-                Form1.fileLines[nameIndex[0] + 3] = stringBuilder.ToString();
-                                
-            }
-
-            if (bookings.ElementAtOrDefault(1) != null)
-            {
-                StringBuilder stringBuilder = new StringBuilder(bookings[1]);
-
-                for (int i = 0; i < 12; i++)
-                {
-                    if (MyControlArray2[i].Text != "B")
-                        MyControlArray2[i].Text = "F";
-
-                    stringBuilder[i] = Convert.ToChar(MyControlArray2[i].Text);
-                }
-
-                Form1.fileLines[nameIndex[1] + 3] = stringBuilder.ToString();
             }
         }
 

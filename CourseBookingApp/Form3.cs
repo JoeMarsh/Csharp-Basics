@@ -21,7 +21,7 @@ namespace CourseBookingApp
         {
             //Add the contents of the textboxes to fileLinesList          
             Form1.fileLinesList.Add(textBox1.Text);
-            Form1.fileLinesList.Add(textBox2.Text);
+            Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
             Form1.fileLinesList.Add(textBox3.Text);
             Form1.fileLinesList.Add("FFFFFFFFFFFF");
         }
@@ -32,13 +32,19 @@ namespace CourseBookingApp
             //TODO: really need to change whole course list management to use a class instead
             List<string> tempList = new List<string>();
 
-            foreach(string line in Form1.fileLines)
+            if (Form1.fileLines != null)
             {
-                tempList.Add(line);
+                foreach (string line in Form1.fileLines)
+                {
+                    tempList.Add(line);
+                }
             }
-            foreach (string line in Form1.fileLinesList)
+            if (Form1.fileLinesList.ElementAtOrDefault(0) != null)
             {
-                tempList.Add(line);
+                foreach (string line in Form1.fileLinesList)
+                {
+                    tempList.Add(line);
+                }
             }
 
             Form1.fileLines = tempList.ToArray();
