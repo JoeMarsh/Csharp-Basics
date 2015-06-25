@@ -44,7 +44,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(267, 29);
             this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -71,6 +70,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Add Next";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -88,9 +88,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(310, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Date:";
+            this.label2.Text = "Date: DD/MM/YY";
             // 
             // label3
             // 
@@ -116,6 +116,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Form3";
             this.Text = "Add Course";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

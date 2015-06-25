@@ -59,7 +59,22 @@ namespace CourseBookingApp
             MyControlArray7 = new ButtonArray(this);
             MyControlArray8 = new ButtonArray(this);
             MyControlArray9 = new ButtonArray(this);
-            MyControlArray10 = new ButtonArray(this);                    
+            MyControlArray10 = new ButtonArray(this);
+
+            //List<Button> buttons = new List<Button>();
+
+            //foreach (Control c in this.Controls)
+            //{
+            //    Button b = c as Button;
+            //    if (b != null)
+            //    {
+            //        buttons.Add(b);
+            //        for (int i = 0; i < 2; i++)
+            //        {
+            //            buttons[i].Text = "test";
+            //        }
+            //    }
+            //}
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -143,7 +158,7 @@ namespace CourseBookingApp
         {   
             //TODO: Just saving to static for now. Need to change to set/get
 
-            //put everything back into fileLines
+            //put everything back into fileLines so we can save it to text file
             if (bookings.ElementAtOrDefault(0) != null)
             {
                 StringBuilder stringBuilder = new StringBuilder(bookings[0]);

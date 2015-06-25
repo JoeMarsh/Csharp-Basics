@@ -15,39 +15,26 @@ namespace CourseBookingApp
     {
         string filename;
         public static string[] fileLines;
+        public static List<string> fileLinesList = new List<string>(); 
         List<string> courseNames = new List<string>(); 
 
         public Form1()
         {
             InitializeComponent();
-
-            //List<Button> buttons = new List<Button>();
-
-            //foreach (Control c in this.Controls)
-            //{
-            //    Button b = c as Button;
-            //    if (b != null)
-            //    {
-            //        buttons.Add(b);
-            //        for (int i = 0; i < 2; i++)
-            //        {
-            //            buttons[i].Text = "test";
-            //        }
-            //    }
-            //}
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
         {
-            OpenFileDialog theDialog = new OpenFileDialog(); //opens file selection window
+            OpenFileDialog theDialog = new OpenFileDialog(); 
             theDialog.Title = "Open Text File";
             theDialog.Filter = "TXT files|*.txt";
             theDialog.InitialDirectory = @"C:\Users\blue20\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
 
-            if (theDialog.ShowDialog() == DialogResult.OK)
+            if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
             {
                 filename = theDialog.FileName;
                 fileLines = File.ReadAllLines(filename); // read the opened file into fileLines
+                //StreamReader openFile = new StreamReader(theDialog.OpenFile()); // Could also use streamreader but need .dispose .close
                 for (int i = 0; i < fileLines.Length; i++)
                 {
                     fileLines[i] = fileLines[i].Trim('"'); //remove " from beginning and end of each line
