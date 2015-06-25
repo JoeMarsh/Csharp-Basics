@@ -74,7 +74,7 @@ namespace CourseBookingApp
             else
                 label2.Text = "No Course Selected";
 
-            bookings.Clear(); //erase everything in bookings so we don't add more lines to it if we reopen the form
+            bookings.Clear(); //erase everything in bookings so we don't end up readding the same lines onto the end when we reopen the form
 
             //loop through all lines and if any match the selected course add the name, date and cost
             //add them to the corresponding list. 
