@@ -113,7 +113,25 @@ namespace CourseBookingApp
         private void button2_Click(object sender, EventArgs e)
         {
             Form3 frm = new Form3();
+            frm.FormClosed += form3Closed;
             frm.Show();
+        }
+
+        void form3Closed(object sender, FormClosedEventArgs e)
+        {
+            for (int i = 0; i < fileLines.Length; i += 4)
+            {
+                courseNames.Add(fileLines[i]);  //add just the course titles into courseNames list                
+            }
+
+            courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
+
+            listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
+
+            foreach (string item in courseNames)
+            {
+                listBox1.Items.Add(item); //add the course titles to the listbox
+            }  
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,17 +143,16 @@ namespace CourseBookingApp
             if (save.ShowDialog() == DialogResult.OK)
             {
                 //save.FileName = filename;
-                StreamWriter writer = new StreamWriter(save.OpenFile());
-                for (int i = 0; i < fileLines.Length; i++)
+                using(StreamWriter writer = new StreamWriter(save.OpenFile()))
                 {
-                    writer.WriteLine(fileLines[i]);
+                    for (int i = 0; i < fileLines.Length; i++)
+                    {
+                        writer.WriteLine(fileLines[i]);
+                    }
                 }
-                writer.Dispose();
-                writer.Close();
+
             }
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
-        }
-
-     
+        }     
     }
 }

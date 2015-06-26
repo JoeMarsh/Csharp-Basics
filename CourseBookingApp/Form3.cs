@@ -19,11 +19,18 @@ namespace CourseBookingApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Add the contents of the textboxes to fileLinesList          
-            Form1.fileLinesList.Add(textBox1.Text);
-            Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
-            Form1.fileLinesList.Add(textBox3.Text);
-            Form1.fileLinesList.Add("FFFFFFFFFFFF");
+            //Add the contents of the textboxes to fileLinesList
+            if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrEmpty(textBox3.Text))
+            {
+                Form1.fileLinesList.Add(textBox1.Text);
+                Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
+                Form1.fileLinesList.Add(textBox3.Text);
+                Form1.fileLinesList.Add("FFFFFFFFFFFF");
+
+                textBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+            }
         }
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
