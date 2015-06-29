@@ -46,7 +46,7 @@ namespace CourseBookingApp
             OpenFileDialog theDialog = new OpenFileDialog(); 
             theDialog.Title = "Open Text File";
             theDialog.Filter = "TXT files|*.txt";
-            theDialog.InitialDirectory = @"C:\Users\blue20\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            theDialog.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
 
             if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
             {
@@ -139,7 +139,8 @@ namespace CourseBookingApp
             SaveFileDialog save = new SaveFileDialog(); //opens save dialog window
             save.Title = "Save Text File";
             save.Filter = "TXT files|*.txt";
-            save.InitialDirectory = @"C:\Users\blue20\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            save.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            save.CreatePrompt = true;
             if (save.ShowDialog() == DialogResult.OK)
             {
                 //save.FileName = filename;
@@ -153,6 +154,22 @@ namespace CourseBookingApp
 
             }
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog newFile = new SaveFileDialog(); 
+            newFile.Title = "New Save File";
+            newFile.Filter = "TXT files|*.txt";
+            newFile.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            if (newFile.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter writer = new StreamWriter(newFile.OpenFile()))
+                {
+                    
+                }
+
+            }
         }     
     }
 }
