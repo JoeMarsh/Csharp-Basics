@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,29 @@ namespace CourseBookingApp
             //Add the contents of the textboxes to fileLinesList
             if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrEmpty(textBox3.Text))
             {
-                Form1.fileLinesList.Add(textBox1.Text);
-                Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
-                Form1.fileLinesList.Add(textBox3.Text);
-                Form1.fileLinesList.Add("FFFFFFFFFFFF");
+                DateTime dateResult;
+                
+                try
+                {
+                    dateResult = DateTime.ParseExact(textBox2.Text, "d'/'M'/'yyyy", CultureInfo.InvariantCulture); //new CultureInfo("en-IE")
+                    Form1.fileLinesList.Add(textBox1.Text);
+                    Form1.fileLinesList.Add(dateResult.ToShortDateString());
+                    Form1.fileLinesList.Add(textBox3.Text);
+                    Form1.fileLinesList.Add("FFFFFFFFFFFF");
 
-                textBox1.Clear();
-                textBox2.Clear();
-                textBox3.Clear();
+                    textBox1.Clear();
+                    textBox2.Clear();
+                    textBox3.Clear();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Invalid Date");
+                }
+                
+
+                    //Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
+
+
             }
         }
 
