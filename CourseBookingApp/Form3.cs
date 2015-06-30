@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -41,11 +42,7 @@ namespace CourseBookingApp
                 {
                     MessageBox.Show("Invalid Date");
                 }
-                
-
                     //Form1.fileLinesList.Add(textBox2.Text); //TODO: Add date validation
-
-
             }
         }
 

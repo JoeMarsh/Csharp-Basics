@@ -74,6 +74,8 @@ namespace CourseBookingApp
                         listBox1.Items.Add(item); //add the course titles to the listbox
                     }
                 }
+                else
+                    MessageBox.Show("File open error or dialog cancelled - Error Code 002");
             }
             catch
             {
@@ -192,6 +194,8 @@ namespace CourseBookingApp
                 //{                   
                 //}
             }
+            else
+                MessageBox.Show("File incorrect format or missing or dialog cancelled - Error 001");
                 //MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }     
     }
