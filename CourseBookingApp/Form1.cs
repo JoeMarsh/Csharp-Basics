@@ -192,10 +192,7 @@ namespace CourseBookingApp
                 //{                   
                 //}
             }
-
                 //MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
         }     
     }
 }
