@@ -21,7 +21,7 @@ namespace CourseBookingApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Add the contents of the textboxes to fileLinesList
+            //add the contents of the textboxes to fileLinesList
             if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrEmpty(textBox3.Text))
             {
                 DateTime dateResult;

@@ -39,14 +39,16 @@ namespace CourseBookingApp
         Control[] dateArray; //array of date labels
         Control[] costArray; //array of cost labels
 
-        private PrintPreviewDialog printPreviewDialog1 = new PrintPreviewDialog();
+        //using custom class MyPrintPreviewDialog instead of PrintPreviewDialog
+        //as the default class does not allow you to select a different printer
+        private MyPrintPreviewDialog printPreviewDialog1 = new MyPrintPreviewDialog();
         private PrintDocument printDocument1 = new PrintDocument();
 
-        // Declare a string to hold the entire document contents. 
+        //declare a string to hold the entire document contents. 
         private string documentContents;
 
-        // Declare a variable to hold the portion of the document that 
-        // is not printed. 
+        //declare a variable to hold the portion of the document that 
+        //is not printed. 
         private string stringToPrint;
 
         public Form2(string[] lines, ListBox list)
@@ -77,7 +79,7 @@ namespace CourseBookingApp
             costArray = new Control[] { label6, label8, label10, label12,
                 label14, label16, label18, label20, label22, label24 };
 
-            // Associate the PrintPage event handler with the PrintPage event.
+            //associate the PrintPage event handler with the PrintPage event.
             printDocument1.PrintPage +=
                 new PrintPageEventHandler(printDocument1_PrintPage);
         }
@@ -164,41 +166,12 @@ namespace CourseBookingApp
             }
         }
 
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            int charactersOnPage = 0;
-            int linesPerPage = 0;
-
-            Font headerFont = new Font(FontFamily.GenericSansSerif, 12.0F, FontStyle.Bold);
-            StringFormat format = new StringFormat();
-            format.Alignment = StringAlignment.Center;
-             
-
-            // Sets the value of charactersOnPage to the number of characters  
-            // of stringToPrint that will fit within the bounds of the page.
-            e.Graphics.MeasureString(stringToPrint, headerFont,
-                e.MarginBounds.Size, format,
-                out charactersOnPage, out linesPerPage);
-
-            // Draws the string within the bounds of the page
-            e.Graphics.DrawString(stringToPrint, headerFont, Brushes.Black,
-                e.MarginBounds, format);
-
-            // Remove the portion of the string that has been printed.
-            stringToPrint = stringToPrint.Substring(charactersOnPage);
-
-            // Check to see if more pages are to be printed.
-            e.HasMorePages = (stringToPrint.Length > 0);
-
-            // If there are no more pages, reset the string to be printed. 
-            if (!e.HasMorePages)
-                stringToPrint = documentContents;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             String temp = "";
 
+            //loop through all our buttons and if a button text is set to "B" for booked then we want to create a print 
+            //out for that booking number
             for (int i = 0; i < buttonRows.Length; i++)
             {
                 foreach (Control button in buttonRows[i])
@@ -215,16 +188,44 @@ namespace CourseBookingApp
                 }
             }
 
-            foreach (ButtonArray column in buttonRows)
-            {
-
-            }
-
             //documentContents = string.Join(Environment.NewLine, Form1.fileLines);
             documentContents = temp;
             stringToPrint = documentContents;
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
         }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+
+            Font headerFont = new Font(FontFamily.GenericSansSerif, 12.0F, FontStyle.Bold);
+            StringFormat format = new StringFormat();
+            format.Alignment = StringAlignment.Center;
+             
+
+            //sets the value of charactersOnPage to the number of characters  
+            //of stringToPrint that will fit within the bounds of the page.
+            e.Graphics.MeasureString(stringToPrint, headerFont,
+                e.MarginBounds.Size, format,
+                out charactersOnPage, out linesPerPage);
+
+            //draws the string within the bounds of the page
+            e.Graphics.DrawString(stringToPrint, headerFont, Brushes.Black,
+                e.MarginBounds, format);
+
+            //remove the portion of the string that has been printed.
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+            //check to see if more pages are to be printed.
+            e.HasMorePages = (stringToPrint.Length > 0);
+
+            //if there are no more pages, reset the string to be printed. 
+            if (!e.HasMorePages)
+                stringToPrint = documentContents;
+        }
+
+
     }
 }

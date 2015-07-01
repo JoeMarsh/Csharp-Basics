@@ -14,7 +14,7 @@ namespace CourseBookingApp
     public partial class Form1 : Form
     {
         string filename;
-        public static string[] fileLines; //TODO: Can probably remove this and use the below list everywhere instead
+        public static string[] fileLines;
         public static List<string> fileLinesList = new List<string>(); 
         List<string> courseNames = new List<string>(); 
 
@@ -46,18 +46,18 @@ namespace CourseBookingApp
             OpenFileDialog theDialog = new OpenFileDialog(); 
             theDialog.Title = "Open Text File";
             theDialog.Filter = "TXT files|*.txt";
-            theDialog.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            //theDialog.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
 
             try
             {
                 if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
                 {
                     filename = theDialog.FileName;
-                    fileLines = File.ReadAllLines(filename, Encoding.Default); // read the opened file into fileLines
-                    //StreamReader openFile = new StreamReader(theDialog.OpenFile()); // Could also use streamreader but need .dispose .close
+                    fileLines = File.ReadAllLines(filename, Encoding.Default); //read the opened file into fileLines
+                    //StreamReader openFile = new StreamReader(theDialog.OpenFile()); //could also use streamreader
                     for (int i = 0; i < fileLines.Length; i++)
                     {
-                        fileLines[i] = fileLines[i].Trim('"'); //remove " from beginning and end of each line
+                        fileLines[i] = fileLines[i].Trim('"'); //remove '"' from beginning and end of each line
                     }
 
                     for (int i = 0; i < fileLines.Length; i += 4)
@@ -77,7 +77,7 @@ namespace CourseBookingApp
                 else
                     MessageBox.Show("File open error or dialog cancelled - Error Code 002");
             }
-            catch
+            catch(FormatException)
             {
                 MessageBox.Show("File open error or dialog cancelled - Error Code 002");
             }
@@ -149,18 +149,23 @@ namespace CourseBookingApp
             SaveFileDialog save = new SaveFileDialog(); //opens save dialog window
             save.Title = "Save Text File";
             save.Filter = "TXT files|*.txt";
-            save.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            //save.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
             save.CreatePrompt = true;
             if (save.ShowDialog() == DialogResult.OK)
             {
                 //save.FileName = filename;
+                string[] tempStringArray = fileLines;
+                for (int i = 0; i < tempStringArray.Length; i++)
+                {
+                    tempStringArray[i] = '"' + tempStringArray[i] + '"';
+                }
                 try
                 {
                     using (StreamWriter writer = new StreamWriter(save.OpenFile()))
                     {
-                        for (int i = 0; i < fileLines.Length; i++)
+                        for (int i = 0; i < tempStringArray.Length; i++)
                         {
-                            writer.WriteLine(fileLines[i]);
+                            writer.WriteLine(tempStringArray[i]);
                         }
                     }
                 }  
@@ -168,7 +173,6 @@ namespace CourseBookingApp
                 {
                     MessageBox.Show("File save error - Error 003");
                 }
-
             }
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
         }
@@ -179,7 +183,7 @@ namespace CourseBookingApp
             SaveFileDialog newFile = new SaveFileDialog(); 
             newFile.Title = "New Save File";
             newFile.Filter = "TXT files|*.txt";
-            newFile.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            //newFile.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
             if (newFile.ShowDialog() == DialogResult.OK)
             {
                 try
