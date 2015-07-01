@@ -43,9 +43,9 @@ namespace CourseBookingApp
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
         {
-            OpenFileDialog theDialog = new OpenFileDialog(); 
-            theDialog.Title = "Open Text File";
-            theDialog.Filter = "TXT files|*.txt";
+            OpenFileDialog theDialog = new OpenFileDialog();
+            //theDialog.Title = "Open Text File";
+            //theDialog.Filter = "TXT files|*.txt";
             //theDialog.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
 
             try
@@ -53,35 +53,42 @@ namespace CourseBookingApp
                 if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
                 {
                     filename = theDialog.FileName;
-                    fileLines = File.ReadAllLines(filename, Encoding.Default); //read the opened file into fileLines
-                    //StreamReader openFile = new StreamReader(theDialog.OpenFile()); //could also use streamreader
-                    for (int i = 0; i < fileLines.Length; i++)
+                    if (Path.GetExtension(filename) == ".txt")
                     {
-                        fileLines[i] = fileLines[i].Trim('"'); //remove '"' from beginning and end of each line
+                        fileLines = File.ReadAllLines(filename, Encoding.Default); //read the opened file into fileLines
+                        //StreamReader openFile = new StreamReader(theDialog.OpenFile()); //could also use streamreader
+                        for (int i = 0; i < fileLines.Length; i++)
+                        {
+                            fileLines[i] = fileLines[i].Trim('"'); //remove '"' from beginning and end of each line
+                        }
+
+                        for (int i = 0; i < fileLines.Length; i += 4)
+                        {
+                            courseNames.Add(fileLines[i]);  //add just the course titles into courseNames list                
+                        }
+
+                        courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
+
+                        listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
+
+                        foreach (string item in courseNames)
+                        {
+                            listBox1.Items.Add(item); //add the course titles to the listbox
+                        }
                     }
-
-                    for (int i = 0; i < fileLines.Length; i += 4)
+                    else
                     {
-                        courseNames.Add(fileLines[i]);  //add just the course titles into courseNames list                
-                    }
-
-                    courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
-
-                    listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
-
-                    foreach (string item in courseNames)
-                    {
-                        listBox1.Items.Add(item); //add the course titles to the listbox
+                        MessageBox.Show("Wrong file format");
                     }
                 }
                 else
                     MessageBox.Show("File open error or dialog cancelled - Error Code 002");
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 MessageBox.Show("File open error or dialog cancelled - Error Code 002");
             }
-   
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -153,14 +160,15 @@ namespace CourseBookingApp
             save.CreatePrompt = true;
             if (save.ShowDialog() == DialogResult.OK)
             {
-                //save.FileName = filename;
-                string[] tempStringArray = fileLines;
-                for (int i = 0; i < tempStringArray.Length; i++)
-                {
-                    tempStringArray[i] = '"' + tempStringArray[i] + '"';
-                }
                 try
                 {
+                    //save.FileName = filename;
+                    string[] tempStringArray = fileLines;
+                    for (int i = 0; i < tempStringArray.Length; i++)
+                    {
+                        tempStringArray[i] = '"' + tempStringArray[i] + '"';
+                    }
+
                     using (StreamWriter writer = new StreamWriter(save.OpenFile()))
                     {
                         for (int i = 0; i < tempStringArray.Length; i++)
@@ -168,7 +176,11 @@ namespace CourseBookingApp
                             writer.WriteLine(tempStringArray[i]);
                         }
                     }
-                }  
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("No file to save");
+                }
                 catch
                 {
                     MessageBox.Show("File save error - Error 003");
@@ -184,7 +196,7 @@ namespace CourseBookingApp
             newFile.Title = "New Save File";
             newFile.Filter = "TXT files|*.txt";
             //newFile.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
-            if (newFile.ShowDialog() == DialogResult.OK)
+            if (newFile.ShowDialog() == DialogResult.OK && (Path.GetExtension(newFile.FileName) == ".txt")) //check that the user has the right file extension when creating a new file
             {
                 try
                 {
