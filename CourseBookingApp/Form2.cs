@@ -197,7 +197,31 @@ namespace CourseBookingApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            documentContents = string.Join(Environment.NewLine, Form1.fileLines);
+            String temp = "";
+
+            for (int i = 0; i < buttonRows.Length; i++)
+            {
+                foreach (Control button in buttonRows[i])
+                {
+                    if (button.Text == "B")
+                    {
+                        temp += "BOOKING NUMBER: " + button.Tag.ToString() + " " + label2.Text + Environment.NewLine;
+                        temp += "Date: " + dateArray[i].Text + Environment.NewLine;
+                        temp += "Cost: " + costArray[i].Text + Environment.NewLine;
+                        temp += "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+                        temp += Environment.NewLine + Environment.NewLine;
+
+                    }
+                }
+            }
+
+            foreach (ButtonArray column in buttonRows)
+            {
+
+            }
+
+            //documentContents = string.Join(Environment.NewLine, Form1.fileLines);
+            documentContents = temp;
             stringToPrint = documentContents;
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();

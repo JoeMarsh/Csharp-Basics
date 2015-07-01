@@ -61,9 +61,6 @@ namespace CourseBookingApp
 
         public void ClickHandler(Object sender, System.EventArgs e)
         {
-            //System.Windows.Forms.MessageBox.Show("You have clicked button " +
-            //   ((System.Windows.Forms.Button)sender).Tag.ToString());
-
             if (((System.Windows.Forms.Button)sender).BackColor == Color.Green)
             {
                 ((System.Windows.Forms.Button)sender).BackColor = SystemColors.Control;

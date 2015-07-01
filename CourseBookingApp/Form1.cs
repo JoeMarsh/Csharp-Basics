@@ -53,7 +53,7 @@ namespace CourseBookingApp
                 if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
                 {
                     filename = theDialog.FileName;
-                    fileLines = File.ReadAllLines(filename); // read the opened file into fileLines
+                    fileLines = File.ReadAllLines(filename, Encoding.Default); // read the opened file into fileLines
                     //StreamReader openFile = new StreamReader(theDialog.OpenFile()); // Could also use streamreader but need .dispose .close
                     for (int i = 0; i < fileLines.Length; i++)
                     {
