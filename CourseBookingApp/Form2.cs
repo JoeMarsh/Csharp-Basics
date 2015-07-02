@@ -35,9 +35,10 @@ namespace CourseBookingApp
         ButtonArray MyControlArray9;
         ButtonArray MyControlArray10;
 
-        ButtonArray[] buttonRows; //array to hold each row of buttons so we can loop through them
-        Control[] dateArray; //array of date labels
-        Control[] costArray; //array of cost labels
+        //array to hold each row of buttons so we can loop through them
+        ButtonArray[] buttonRows; 
+        Control[] dateArray; 
+        Control[] costArray; 
 
         //using custom class MyPrintPreviewDialog instead of PrintPreviewDialog
         //as the default class does not allow you to select a different printer
@@ -86,12 +87,15 @@ namespace CourseBookingApp
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            if (fileLines != null && listBox.SelectedIndex != -1) //check that user has selected a course in the list
+            //check that user has selected a course in the list
+            if (fileLines != null && listBox.SelectedIndex != -1) 
                 label2.Text = listBox.Text;
             else
                 label2.Text = "No Course Selected";
 
-            bookings.Clear(); //erase everything in bookings so we don't end up readding the same lines onto the end when we reopen the form
+            //erase everything in bookings so we don't end up readding the same lines 
+            //onto the end when we reopen the form
+            bookings.Clear(); 
 
             //loop through all lines and if any match the selected course add the name, date and cost
             //add them to the corresponding list. 
@@ -144,9 +148,6 @@ namespace CourseBookingApp
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //TODO: Just saving to static array Form1.fileLines for now.
-            //might be better as a class to manage the data elements
-
             //put everything back into Form1.fileLines so we can save it to text file
             for (int k = 0; k < 10; k++)
             {
@@ -170,7 +171,8 @@ namespace CourseBookingApp
         {
             String temp = "";
 
-            //loop through all our buttons and if a button text is set to "B" for booked then we want to create a print 
+            //loop through all our buttons and if a button text is set to "B" for 
+            //booked then we want to create a print 
             //out for that booking number
             for (int i = 0; i < buttonRows.Length; i++)
             {
@@ -178,7 +180,8 @@ namespace CourseBookingApp
                 {
                     if (button.Text == "B")
                     {
-                        temp += "BOOKING NUMBER: " + button.Tag.ToString() + " " + label2.Text + Environment.NewLine;
+                        temp += "BOOKING NUMBER: " + button.Tag.ToString() + " " + label2.Text 
+                            + Environment.NewLine;
                         temp += "Date: " + dateArray[i].Text + Environment.NewLine;
                         temp += "Cost: " + costArray[i].Text + Environment.NewLine;
                         temp += "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
@@ -225,7 +228,5 @@ namespace CourseBookingApp
             if (!e.HasMorePages)
                 stringToPrint = documentContents;
         }
-
-
     }
 }

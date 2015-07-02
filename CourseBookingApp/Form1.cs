@@ -41,52 +41,58 @@ namespace CourseBookingApp
         //    }              
         //}
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e) //open file menu
+        private void openToolStripMenuItem_Click(object sender, EventArgs e) 
         {
             OpenFileDialog theDialog = new OpenFileDialog();
-            //theDialog.Title = "Open Text File";
-            //theDialog.Filter = "TXT files|*.txt";
-            //theDialog.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
+            theDialog.Title = "Open Text File";
+            theDialog.Filter = "TXT files|*.txt";
 
             try
             {
-                if (theDialog.ShowDialog() == DialogResult.OK) //opens file selection window
+                //opens file selection window
+                if (theDialog.ShowDialog() == DialogResult.OK) 
                 {
                     filename = theDialog.FileName;
                     if (Path.GetExtension(filename) == ".txt")
                     {
-                        fileLines = File.ReadAllLines(filename, Encoding.Default); //read the opened file into fileLines
-                        //StreamReader openFile = new StreamReader(theDialog.OpenFile()); //could also use streamreader
+                        //read the opened file into fileLines
+                        fileLines = File.ReadAllLines(filename, Encoding.Default); 
+ 
                         for (int i = 0; i < fileLines.Length; i++)
                         {
-                            fileLines[i] = fileLines[i].Trim('"'); //remove '"' from beginning and end of each line
+                            //remove '"' from beginning and end of each line
+                            fileLines[i] = fileLines[i].Trim('"'); 
                         }
 
                         for (int i = 0; i < fileLines.Length; i += 4)
                         {
-                            courseNames.Add(fileLines[i]);  //add just the course titles into courseNames list                
+                            //add just the course titles into courseNames list 
+                            courseNames.Add(fileLines[i]);                 
                         }
 
-                        courseNames = courseNames.Distinct().ToList<String>(); //remove any duplicate course titles
+                        //remove any duplicate course titles
+                        courseNames = courseNames.Distinct().ToList<String>();
 
-                        listBox1.Items.Clear(); //clear the listbox so we dont add to the list if open file is used more than once
+                        //clear the listbox so we dont add to the list if open file 
+                        //is used more than once
+                        listBox1.Items.Clear(); 
 
                         foreach (string item in courseNames)
                         {
-                            listBox1.Items.Add(item); //add the course titles to the listbox
+                            //add the course titles to the listbox
+                            listBox1.Items.Add(item); 
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Wrong file format");
-                    }
+                    else                    
+                        MessageBox.Show("Wrong file format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                 }
                 else
-                    MessageBox.Show("File open error or dialog cancelled - Error Code 002");
+                    MessageBox.Show("File open error or dialog cancelled - Error Code 002", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                MessageBox.Show("File open error or dialog cancelled - Error Code 002");
+                MessageBox.Show("File open error or dialog cancelled - Error Code 002", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -179,11 +185,11 @@ namespace CourseBookingApp
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("No file to save");
+                    MessageBox.Show("No file to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch
                 {
-                    MessageBox.Show("File save error - Error 003");
+                    MessageBox.Show("File save error - Error 003", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", fileLines);
@@ -191,12 +197,11 @@ namespace CourseBookingApp
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Some text", "Some title", MessageBoxButtons.OK, MessageBoxIcon.Error);
             SaveFileDialog newFile = new SaveFileDialog(); 
             newFile.Title = "New Save File";
             newFile.Filter = "TXT files|*.txt";
-            //newFile.InitialDirectory = @"C:\Users\blue3\Documents\vsprojects\Csharp-Basics\CourseBookingApp";
-            if (newFile.ShowDialog() == DialogResult.OK && (Path.GetExtension(newFile.FileName) == ".txt")) //check that the user has the right file extension when creating a new file
+            //check that the user has the right file extension when creating a new file
+            if (newFile.ShowDialog() == DialogResult.OK && (Path.GetExtension(newFile.FileName) == ".txt")) 
             {
                 try
                 {
@@ -204,15 +209,11 @@ namespace CourseBookingApp
                 }
                 catch (InvalidDataException f)
                 {
-                    MessageBox.Show("File incorrect format or missing or dialog cancelled {0} - Error 001", f.Message);
+                    MessageBox.Show("File incorrect format or missing or dialog cancelled - Error 001", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                //using (StreamWriter writer = new StreamWriter(newFile.OpenFile()))
-                //{                   
-                //}
             }
             else
-                MessageBox.Show("File incorrect format or missing or dialog cancelled - Error 001");
-                //MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File incorrect format or missing or dialog cancelled - Error 001", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }     
     }
 }
