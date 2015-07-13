@@ -1,0 +1,1 @@
+﻿SELECT * FROM Customers, Orders WHERE Customers.CustomerID = Orders.customerID;
