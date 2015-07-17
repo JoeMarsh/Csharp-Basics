@@ -1,0 +1,4 @@
+﻿CREATE VIEW ManagerInfo 
+WITH SCHEMABINDING AS
+SELECT * FROM Employees
+WHERE Job_ID like '%MGR'
