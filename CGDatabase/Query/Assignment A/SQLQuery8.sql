@@ -1,0 +1,1 @@
+﻿SELECT COUNT(Employee_No) FROM Employees

@@ -1,0 +1,1 @@
+﻿SELECT CAST (AVG(Annual_Salary) AS DECIMAL(8,2)) Average_Yearly_Salary FROM Employees

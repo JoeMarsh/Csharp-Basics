@@ -1,0 +1,1 @@
+﻿SELECT CAST(SUM(Annual_Salary/12) as INT) as Total_Monthly_Salary FROM Employees

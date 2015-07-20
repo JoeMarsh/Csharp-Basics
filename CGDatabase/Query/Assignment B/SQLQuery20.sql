@@ -1,0 +1,1 @@
+﻿SELECT * FROM Sal_History

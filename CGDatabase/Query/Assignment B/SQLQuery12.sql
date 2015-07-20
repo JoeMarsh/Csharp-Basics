@@ -1,0 +1,2 @@
+﻿INSERT INTO Jobs
+VALUES('IT_ASST', 'IT Assistant', 5000, 8000)
