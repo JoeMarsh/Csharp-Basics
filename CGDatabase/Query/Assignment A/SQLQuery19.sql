@@ -1,2 +1,0 @@
-﻿CREATE USER Anybody WITHOUT LOGIN;
-GRANT SELECT on ManagerInfo TO Anybody
